@@ -1,4 +1,6 @@
 import { ChannelList } from 'stream-chat-expo';
+import { useMemo } from 'react';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 
 const sort = { last_message_at: -1 };
 const options = {
@@ -7,10 +9,11 @@ const options = {
 };
 
 export const ChannelListMod = () => {
+  const variables = GlobalVariables.useValues();
   const memoizedFilters = useMemo(
     () => ({
       example: 'example-apps',
-      members: { $in: ['ron'] },
+      members: { $in: [variables.USER.id] },
       type: 'messaging',
     }),
     []

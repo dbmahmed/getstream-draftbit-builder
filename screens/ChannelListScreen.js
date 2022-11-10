@@ -1,4 +1,5 @@
 import React from 'react';
+import * as ChannelList from '../custom-files/ChannelList.js';
 import * as CustomCode from '../custom-files/CustomCode.js';
 import * as getStreamChatWrapper from '../custom-files/getStreamChatWrapper.js';
 import * as Utils from '../utils';
@@ -10,7 +11,11 @@ const ChannelListScreen = props => {
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <Utils.CustomCodeErrorBoundary>
         <getStreamChatWrapper.GetStreamChatProvider>
-          <View style={styles.View2200bac7} />
+          <View style={styles.View2200bac7}>
+            <Utils.CustomCodeErrorBoundary>
+              <ChannelList.ChannelListMod />
+            </Utils.CustomCodeErrorBoundary>
+          </View>
         </getStreamChatWrapper.GetStreamChatProvider>
       </Utils.CustomCodeErrorBoundary>
     </ScreenContainer>
