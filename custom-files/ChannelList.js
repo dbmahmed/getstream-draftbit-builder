@@ -1,5 +1,6 @@
 import { ChannelList } from 'stream-chat-expo';
-import { useMemo } from 'react';
+import { useMemo, useContext } from 'react';
+import { StreamContext } from './CustomCode';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
 const sort = { last_message_at: -1 };
@@ -10,6 +11,7 @@ const options = {
 
 export const ChannelListMod = ({ navigation }) => {
   const variables = GlobalVariables.useValues();
+  const { setChannel } = useContext(StreamContext);
   const memoizedFilters = useMemo(
     () => ({
       example: 'example-apps',

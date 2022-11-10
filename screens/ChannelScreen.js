@@ -1,8 +1,20 @@
 import React from 'react';
+import * as Channel from '../custom-files/Channel.js';
+import * as CustomCode from '../custom-files/CustomCode.js';
+import * as getStreamChatWrapper from '../custom-files/getStreamChatWrapper.js';
+import * as Utils from '../utils';
 import { ScreenContainer } from '@draftbit/ui';
 
 const ChannelScreen = props => {
-  return <ScreenContainer hasSafeArea={false} scrollable={false} />;
+  return (
+    <ScreenContainer hasSafeArea={false} scrollable={false}>
+      <Utils.CustomCodeErrorBoundary>
+        <getStreamChatWrapper.GetStreamChatProvider>
+          <Channel.ChannelMod navigation={props.navigation} />
+        </getStreamChatWrapper.GetStreamChatProvider>
+      </Utils.CustomCodeErrorBoundary>
+    </ScreenContainer>
+  );
 };
 
 export default ChannelScreen;

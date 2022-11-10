@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStreamChatTheme } from '../useStreamChatTheme.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import StreamContext from './CustomCode';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { StreamChat } from 'stream-chat';
 
@@ -10,7 +11,10 @@ export const GetStreamChatProvider = ({ children }) => {
   const bottom = useSafeAreaInsets();
   const theme = useStreamChatTheme();
   const variables = GlobalVariables.useValues();
+  const [channel, setChannel] = useState();
   const [clientReady, setClientReady] = useState(false);
+  const [thread, setThread] = useState();
+
   const chatClient = StreamChat.getInstance(variables.GS_API_KEY);
   const streami18n = new Streami18n({
     language: 'en',
@@ -32,9 +36,13 @@ export const GetStreamChatProvider = ({ children }) => {
       translucentStatusBar
       value={{ style: theme }}
     >
-      <Chat client={chatClient} i18nInstance={streami18n}>
-        {children}
-      </Chat>
+      <StreamContext.Provider
+        value={{ channel, setChannel, thread, setThread }}
+      >
+        <Chat client={chatClient} i18nInstance={streami18n}>
+          {children}
+        </Chat>
+      </StreamContext.Provider>
     </OverlayProvider>
   ) : (
     <View style={styles.Viewbf78ff24}>
