@@ -4,6 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DeviceVariables = {
+  GS_API_KEY: 'q3gtgpbkjzk7',
   GS_USER_TOKEN:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNDIzNCJ9.kklZST8G0L2-vr9wMMuP03JYYui204BA1L8PKiWSxkQ',
   USER: { id: '4234' },

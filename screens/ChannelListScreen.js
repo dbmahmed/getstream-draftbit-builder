@@ -13,7 +13,7 @@ const ChannelListScreen = props => {
         <getStreamChatWrapper.GetStreamChatProvider>
           <View style={styles.View2200bac7}>
             <Utils.CustomCodeErrorBoundary>
-              <ChannelList.ChannelListMod />
+              <ChannelList.ChannelListMod navigation={props.navigation} />
             </Utils.CustomCodeErrorBoundary>
           </View>
         </getStreamChatWrapper.GetStreamChatProvider>

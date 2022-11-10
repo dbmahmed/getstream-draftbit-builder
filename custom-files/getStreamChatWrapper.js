@@ -1,23 +1,24 @@
-import { OverlayProvider, Chat } from 'stream-chat-expo';
+import { OverlayProvider, Chat, Streami18n } from 'stream-chat-expo';
 import { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import * as CustomCode from './CustomCode';
 import { useStreamChatTheme } from '../useStreamChatTheme.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { StreamChat } from 'stream-chat';
 
 export const GetStreamChatProvider = ({ children }) => {
   const bottom = useSafeAreaInsets();
   const theme = useStreamChatTheme();
   const variables = GlobalVariables.useValues();
   const [clientReady, setClientReady] = useState(false);
+  const chatClient = StreamChat.getInstance(variables.GS_API_KEY);
+  const streami18n = new Streami18n({
+    language: 'en',
+  });
 
   useEffect(() => {
     const setupClient = async () => {
-      await CustomCode.chatClient.connectUser(
-        variables.USER,
-        variables.GS_USER_TOKEN
-      );
+      await chatClient.connectUser(variables.USER, variables.GS_USER_TOKEN);
 
       setClientReady(true);
     };
@@ -27,11 +28,11 @@ export const GetStreamChatProvider = ({ children }) => {
   return clientReady ? (
     <OverlayProvider
       bottomInset={bottom}
-      i18nInstance={CustomCode.streami18n}
+      i18nInstance={streami18n}
       translucentStatusBar
       value={{ style: theme }}
     >
-      <Chat client={CustomCode.chatClient} i18nInstance={CustomCode.streami18n}>
+      <Chat client={chatClient} i18nInstance={streami18n}>
         {children}
       </Chat>
     </OverlayProvider>
