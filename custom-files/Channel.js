@@ -3,10 +3,16 @@ import { Channel, MessageList, MessageInput } from 'stream-chat-expo';
 import { View } from 'react-native';
 import { useContext } from 'native';
 import { useHeaderHeight } from '@react-navigation/stack';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 
 export const ChannelMod = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
-  const { setThread, channel, thread } = useContext(StreamContext);
+  const variables = GlobalVariables.useValues();
+  const setVariables = GlobalVariables.useSetValue();
+  const channel = variables.CHANNEL;
+  const thread = variables.THREAD;
+  // const { setThread, channel, thread } = useContext(StreamContext);
+  const setThread = t => setVariables({ key: 'TRHEAD', value: t });
 
   return (
     <Channel
@@ -18,7 +24,7 @@ export const ChannelMod = ({ navigation }) => {
         <MessageList
           onThreadSelect={thread => {
             setThread(thread);
-            navigation.navigate('Thread');
+            navigation.navigate('ThreadScreen');
           }}
         />
         <MessageInput />

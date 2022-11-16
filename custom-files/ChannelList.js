@@ -11,7 +11,9 @@ const options = {
 
 export const ChannelListMod = ({ navigation }) => {
   const variables = GlobalVariables.useValues();
-  const { setChannel } = useContext(StreamContext);
+  const setVariables = GlobalVariables.usesetValue();
+
+  const setChannel = c => setVariables({ key: 'CHANNEL', value: c });
   const memoizedFilters = useMemo(
     () => ({
       example: 'example-apps',
@@ -27,7 +29,7 @@ export const ChannelListMod = ({ navigation }) => {
       sort={sort}
       onSelect={channel => {
         setChannel(channel);
-        navigation.navigate('Channel');
+        navigation.navigate('ChannelScreen');
       }}
     />
   );
