@@ -1,7 +1,5 @@
-import { StreamContext } from '../CustomCode';
 import { Channel, MessageList, MessageInput } from 'stream-chat-expo';
 import { View } from 'react-native';
-import { useContext } from 'native';
 import { useHeaderHeight } from '@react-navigation/stack';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
@@ -11,7 +9,6 @@ export const ChannelMod = ({ navigation }) => {
   const setVariables = GlobalVariables.useSetValue();
   const channel = variables.CHANNEL;
   const thread = variables.THREAD;
-  // const { setThread, channel, thread } = useContext(StreamContext);
   const setThread = t => setVariables({ key: 'TRHEAD', value: t });
 
   return (
