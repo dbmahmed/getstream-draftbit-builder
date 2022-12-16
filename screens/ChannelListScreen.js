@@ -5,24 +5,41 @@ import * as CustomCode from '../custom-files/CustomCode.js';
 import * as getStreamChatWrapper from '../custom-files/getStreamChatWrapper.js';
 import * as Utils from '../utils';
 import { Icon, ScreenContainer, withTheme } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { StyleSheet, TextInput, View } from 'react-native';
 
 const ChannelListScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
 
-  const memoizedFilters = React.useMemo(
-    () => ({
-      example: Variables.APP_ID,
-      members: { $in: [Variables.USER.id] },
-      // member: { user: { name: { $autocomplete: [variables.USER.id] } } },
-      name: { $in: ['TestChannel1'] },
-      type: 'messaging',
-    }),
-    []
-  );
+  const setFilter = newVal => {
+    if (newTextInputValue)
+      setMemoizedFilters(prev => ({
+        ...prev,
+        name: { $in: [newVal] },
+      }));
+    else
+      setMemoizedFilters(prev => {
+        delete prev.name;
+        return { ...prev };
+      });
+  };
+
   const { theme } = props;
 
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      setFilter(undefined);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
+
+  const [memoizedFilters, setMemoizedFilters] = React.useState({});
   const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
@@ -36,6 +53,7 @@ const ChannelListScreen = props => {
             onChangeText={newTextInputValue => {
               try {
                 setTextInputValue(newTextInputValue);
+                setFilter(newTextInputValue);
               } catch (err) {
                 console.error(err);
               }
