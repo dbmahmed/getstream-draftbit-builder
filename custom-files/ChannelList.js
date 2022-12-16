@@ -8,22 +8,15 @@ const options = {
   watch: true,
 };
 
-export const ChannelListMod = ({ navigation }) => {
+export const ChannelListMod = ({ navigation, filter }) => {
   const variables = GlobalVariables.useValues();
   const setVariables = GlobalVariables.useSetValue();
 
   const setChannel = c => setVariables({ key: 'CHANNEL', value: c });
-  const memoizedFilters = useMemo(
-    () => ({
-      example: variables.APP_ID,
-      members: { $in: [variables.USER.id] },
-      type: 'messaging',
-    }),
-    []
-  );
+
   return (
     <ChannelList
-      filters={memoizedFilters}
+      filters={filter}
       options={options}
       sort={sort}
       onSelect={channel => {

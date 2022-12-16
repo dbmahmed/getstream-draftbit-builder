@@ -9,7 +9,7 @@ import { ScreenContainer, withTheme } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 
-const ChannelListScreen = props => {
+const ChannelListVaultScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
@@ -65,4 +65,4 @@ const ChannelListScreen = props => {
 
 const styles = theme => StyleSheet.create({ View2200bac7: { height: '100%' } });
 
-export default withTheme(ChannelListScreen);
+export default withTheme(ChannelListVaultScreen);
