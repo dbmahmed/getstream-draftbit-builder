@@ -3,9 +3,11 @@ import * as CustomCode from '../custom-files/CustomCode.js';
 import * as Thread from '../custom-files/Thread.js';
 import * as getStreamChatWrapper from '../custom-files/getStreamChatWrapper.js';
 import * as Utils from '../utils';
-import { ScreenContainer } from '@draftbit/ui';
+import { ScreenContainer, withTheme } from '@draftbit/ui';
 
 const ThreadScreen = props => {
+  const { theme } = props;
+
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
       <Utils.CustomCodeErrorBoundary>
@@ -17,4 +19,4 @@ const ThreadScreen = props => {
   );
 };
 
-export default ThreadScreen;
+export default withTheme(ThreadScreen);

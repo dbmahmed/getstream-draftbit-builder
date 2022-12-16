@@ -6,10 +6,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const DeviceVariables = {
   AUTH_HEADER:
     'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRHJhZnRiaXQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJCYXNpY1VzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImFlMjNkYzc5LTM2OTAtNDhiMS04YmNkLWRlN2Q0YWEyMTI3NCIsImV4cCI6MTY3MTEyMzM0MSwiaXNzIjoiaHR0cHM6Ly92YXVsdHNwb3J0c2hxLmNvbSIsImF1ZCI6Imh0dHBzOi8vdmF1bHRzcG9ydHNocS5jb20ifQ.qfnOwxcDsVolC18vlR1hnsPl3gEn55aMPSxP8dAiO7o',
-  GS_API_KEY: 'q95x9hkbyd6p',
+  CONNECTED_CHAT_CLIENT: false,
+  GS_API_KEY: 'enybq63jpds5',
+  GS_APP_ID: 'demo-vault',
   GS_USER_TOKEN:
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiYWUyM2RjNzktMzY5MC00OGIxLThiY2QtZGU3ZDRhYTIxMjc0In0.qVEauNdDaMDoNcoPFGhgJ-26PK1rxDuwytOlVVCtxQA',
-  USER: { id: 'ae23dc79-3690-48b1-8bcd-de7d4aa21274' },
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoibWFydWYifQ.kAXZEGYGQpKsbKP_aGcKRmLZFX74iijaa0_DjIj0eoc',
+  USER: { id: 'maruf' },
 };
 const AppVariables = {};
 const GlobalVariableContext = React.createContext();

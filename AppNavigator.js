@@ -9,6 +9,7 @@ import theme from './themes/DraftbitTheme.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
 import ChannelListScreen from './screens/ChannelListScreen';
+import ChannelListVaultScreen from './screens/ChannelListVaultScreen';
 import ChannelScreen from './screens/ChannelScreen';
 import ThreadScreen from './screens/ThreadScreen';
 
@@ -69,9 +70,9 @@ function StackNavigator() {
   return (
     <Stack.Navigator initialRouteName="ChannelListScreen">
       <Stack.Screen
-        name="ChannelListScreen"
-        component={ChannelListScreen}
-        options={{ headerTitle: 'Channel List', title: 'ChannelList' }}
+        name="ChannelListVaultScreen"
+        component={ChannelListVaultScreen}
+        options={{ headerTitle: 'Channel List', title: 'ChannelList Vault' }}
       />
       <Stack.Screen
         name="ChannelScreen"
@@ -117,6 +118,11 @@ function StackNavigator() {
           title: 'Thread',
         }}
       />
+      <Stack.Screen
+        name="ChannelListScreen"
+        component={ChannelListScreen}
+        options={{ title: 'ChannelList' }}
+      />
     </Stack.Navigator>
   );
 }
@@ -124,7 +130,13 @@ function StackNavigator() {
 export default function RootAppNavigator() {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
-      <Stack.Navigator>
+      <Stack.Navigator
+        headerMode="none"
+        initialRouteName="StackNavigator"
+        screenOptions={{
+          headerTransparent: false,
+        }}
+      >
         <Stack.Screen name="StackNavigator" component={StackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

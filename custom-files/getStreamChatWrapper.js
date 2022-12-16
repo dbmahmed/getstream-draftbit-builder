@@ -13,6 +13,12 @@ export const GetStreamChatProvider = ({ children }) => {
 
   const [clientReady, setClientReady] = useState(false);
 
+  console.log(
+    'in the wrapper',
+    variables.GS_API_KEY,
+    variables.USER,
+    variables.GS_USER_TOKEN
+  );
   const chatClient = StreamChat.getInstance(variables.GS_API_KEY);
   const streami18n = new Streami18n({
     language: 'en',
@@ -20,12 +26,17 @@ export const GetStreamChatProvider = ({ children }) => {
 
   useEffect(() => {
     const setupClient = async () => {
-      await chatClient.connectUser(variables.USER, variables.GS_USER_TOKEN);
+      try {
+        await chatClient.connectUser(variables.USER, variables.GS_USER_TOKEN);
+      } catch (e) {
+        console.log('error while connecting user', e.message);
+      }
 
       setClientReady(true);
     };
 
     setupClient();
+    return () => chatClient.disconnectUser();
   }, []);
   return clientReady ? (
     <OverlayProvider

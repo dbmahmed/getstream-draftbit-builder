@@ -15,7 +15,7 @@ export const ChannelListMod = ({ navigation }) => {
   const setChannel = c => setVariables({ key: 'CHANNEL', value: c });
   const memoizedFilters = useMemo(
     () => ({
-      example: 'example-apps',
+      example: variables.APP_ID,
       members: { $in: [variables.USER.id] },
       type: 'messaging',
     }),
