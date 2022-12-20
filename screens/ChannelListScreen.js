@@ -18,10 +18,14 @@ const ChannelListScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
 
-  const setFilter = newVal => {
+  const setFilter = (Variables, newVal) => {
     if (newVal)
       setMemoizedFilters({ ...prev, name: { $autocomplete: newVal } });
-    else setInitialFilter();
+    else
+      setMemoizedFilters({
+        members: { $in: [Variables.USER.id] },
+        type: 'messaging',
+      });
   };
 
   const setInitialFilter = Variables => {
@@ -97,7 +101,7 @@ const ChannelListScreen = props => {
             onChangeText={newTextInputValue => {
               try {
                 setTextInputValue(newTextInputValue);
-                setFilter(newTextInputValue);
+                setFilter(Variables, newTextInputValue);
               } catch (err) {
                 console.error(err);
               }
