@@ -20,7 +20,10 @@ const ChannelListScreen = props => {
 
   const setFilter = (Variables, newVal) => {
     if (newVal)
-      setMemoizedFilters({ ...prev, name: { $autocomplete: newVal } });
+      setMemoizedFilters(prev => ({
+        ...prev,
+        name: { $autocomplete: newVal },
+      }));
     else
       setMemoizedFilters({
         members: { $in: [Variables.USER.id] },
