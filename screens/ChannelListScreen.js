@@ -21,7 +21,7 @@ const ChannelListScreen = props => {
   const setFilter = newVal => {
     setMemoizedFilters(prev => ({
       ...prev,
-      name: { $autcomplete: newVal },
+      name: { $autocomplete: newVal },
     }));
   };
 
