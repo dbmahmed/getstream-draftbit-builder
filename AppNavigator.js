@@ -68,7 +68,7 @@ function Placeholder() {
 }
 function StackNavigator() {
   return (
-    <Stack.Navigator initialRouteName="ChannelListScreen">
+    <Stack.Navigator headerMode="none" initialRouteName="ChannelListScreen">
       <Stack.Screen
         name="ChannelListVaultScreen"
         component={ChannelListVaultScreen}
