@@ -4,11 +4,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DeviceVariables = {
-  AUTH_HEADER:
-    'Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic3RyaW5nMSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkJhc2ljVXNlciIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiODQzMDQ4YjktNGVkMy00Njg5LTliODQtNTdkNjM1NWFmNTM1IiwiZXhwIjoxNjc1ODU5MjUyLCJpc3MiOiJodHRwczovL3ZhdWx0c3BvcnRzaHEuY29tIiwiYXVkIjoiaHR0cHM6Ly92YXVsdHNwb3J0c2hxLmNvbSJ9.LkhyH03y_Q6vhl7dGZLAxRi3VPTq5TjA3sVOi7hIy3w',
+  AUTH_HEADER: '',
   GS_API_KEY: 'enybq63jpds5',
-  GS_USER_TOKEN:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoibWFydWYifQ.kAXZEGYGQpKsbKP_aGcKRmLZFX74iijaa0_DjIj0eoc',
+  GS_USER_TOKEN: '',
   USER: { id: 'maruf' },
 };
 const AppVariables = {};
