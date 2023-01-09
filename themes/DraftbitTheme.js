@@ -4,6 +4,7 @@ export default {
   roundness: 6,
   colors: {
     Background: 'rgba(251, 252, 253, 1)',
+    'Custom Color': 'rgb(0, 128, 0)',
     Divider: 'rgba(234, 237, 242, 1)',
     Error: 'rgba(255, 69, 100, 1)',
     Light: 'rgba(165, 173, 183, 1)',
@@ -16,6 +17,7 @@ export default {
     'Strong Inverse': 'rgba(255, 255, 255, 1)',
     Surface: 'rgba(255, 255, 255, 1)',
     background: 'rgba(251, 252, 253, 1)',
+    custom_rgb0_128_0: 'rgb(0, 128, 0)',
     divider: 'rgba(234, 237, 242, 1)',
     error: 'rgba(255, 69, 100, 1)',
     light: 'rgba(165, 173, 183, 1)',

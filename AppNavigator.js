@@ -11,6 +11,7 @@ import LinkingConfiguration from './LinkingConfiguration.js';
 import ChannelListScreen from './screens/ChannelListScreen';
 import ChannelListVaultScreen from './screens/ChannelListVaultScreen';
 import ChannelScreen from './screens/ChannelScreen';
+import SimpleLoginScreen from './screens/SimpleLoginScreen';
 import ThreadScreen from './screens/ThreadScreen';
 
 const Stack = createStackNavigator();
@@ -137,6 +138,11 @@ export default function RootAppNavigator() {
           headerTransparent: false,
         }}
       >
+        <Stack.Screen
+          name="SimpleLoginScreen"
+          component={SimpleLoginScreen}
+          options={{ title: 'Simple Login' }}
+        />
         <Stack.Screen name="StackNavigator" component={StackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

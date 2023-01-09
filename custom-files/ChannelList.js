@@ -1,5 +1,4 @@
 import { ChannelList } from 'stream-chat-expo';
-import { useMemo } from 'react';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
 const sort = { last_message_at: -1 };
@@ -9,7 +8,6 @@ const options = {
 };
 
 export const ChannelListMod = ({ navigation, filter }) => {
-  const variables = GlobalVariables.useValues();
   const setVariables = GlobalVariables.useSetValue();
 
   const setChannel = c => setVariables({ key: 'CHANNEL', value: c });
