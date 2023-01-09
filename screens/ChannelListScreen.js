@@ -99,7 +99,7 @@ const ChannelListScreen = props => {
   const [memoizedFilters, setMemoizedFilters] = React.useState({});
   const [newChannelName, setNewChannelName] = React.useState('');
   const [newGroupMembers, setNewGroupMembers] = React.useState([]);
-  const [showUserModal, setShowUserModal] = React.useState(true);
+  const [showUserModal, setShowUserModal] = React.useState(false);
   const [textInputValue, setTextInputValue] = React.useState('');
   const [textInputValue2, setTextInputValue2] = React.useState('');
   const [userSearch, setUserSearch] = React.useState('');
