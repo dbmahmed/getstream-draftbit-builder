@@ -23,7 +23,7 @@ export const GetStreamChatProvider = ({ children }) => {
     const setupClient = async () => {
       try {
         console.log(
-          `Connecting with user_id: ${variables.USER.id} GSTOKEN: ${variables.GS_USER_TOKEN}`
+          `Connecting with api_key ${variables.GS_API_KEY} user_id: ${variables.USER.id} GSTOKEN: ${variables.GS_USER_TOKEN}`
         );
         await chatClient.connectUser(variables.USER, variables.GS_USER_TOKEN);
       } catch (e) {
