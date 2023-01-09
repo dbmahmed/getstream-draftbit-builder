@@ -15,7 +15,7 @@ export const GetStreamChatProvider = ({ children }) => {
     StreamChat.getInstance(variables.GS_API_KEY)
   );
 
-  // const [clientReady, setClientReady] = useState(false);
+  const [clientReady, setClientReady] = useState(false);
 
   // console.log('in the wrapper', variables.GS_API_KEY, variables.USER, variables.GS_USER_TOKEN)
   // const chatClient = StreamChat.getInstance(variables.GS_API_KEY);
@@ -31,16 +31,24 @@ export const GetStreamChatProvider = ({ children }) => {
         );
         await chatClient.connectUser(variables.USER, variables.GS_USER_TOKEN);
         await setVariables({ key: 'GS_CLIENT_CONNECTED', value: true });
+        setClientReady(true);
       } catch (e) {
         console.log('error while connecting user', e.message);
       }
-
-      // setClientReady(true);
     };
-    if (variables.GS_USER_TOKEN && variables.USER?.id) setupClient();
+    if (
+      !variables.GS_CLIENT_CONNECTED &&
+      variables.GS_USER_TOKEN &&
+      variables.USER?.id
+    )
+      setupClient();
     return async () => {
-      setChatClient(null);
-      chatClient.disconnectUser();
+      if (variables.GS_CLIENT_CONNECTED) {
+        setChatClient(null);
+        chatClient.disconnectUser();
+        setClientReady(false);
+        await setVariables({ key: 'GS_CLIENT_CONNECTED', value: false });
+      }
     };
   }, [variables.USER?.id, variables.GS_USER_TOKEN]);
 
