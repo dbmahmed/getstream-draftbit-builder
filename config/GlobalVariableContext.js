@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DeviceVariables = {
   AUTH_HEADER: '',
-  GS_API_KEY: 'enybq63jpds5',
+  GS_API_KEY: 'x65f7n98t9nq',
   GS_USER_TOKEN: '',
   USER: {},
 };

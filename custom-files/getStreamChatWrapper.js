@@ -66,7 +66,7 @@ export const GetStreamChatProvider1 = ({ children }) => {
   const [clientReady, setClientReady] = useState(false);
 
   // console.log('in the wrapper', variables.GS_API_KEY, variables.USER, variables.GS_USER_TOKEN)
-  const chatClient = StreamChat.getInstance(variables.GS_API_KEY);
+  const chatClient = StreamChat.getInstance('x65f7n98t9nq');
   const streami18n = new Streami18n({
     language: 'en',
   });
