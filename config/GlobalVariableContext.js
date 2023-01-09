@@ -7,7 +7,7 @@ const DeviceVariables = {
   AUTH_HEADER: '',
   GS_API_KEY: 'enybq63jpds5',
   GS_USER_TOKEN: '',
-  USER: { id: 'maruf' },
+  USER: {},
 };
 const AppVariables = {};
 const GlobalVariableContext = React.createContext();

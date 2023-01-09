@@ -32,9 +32,9 @@ export const GetStreamChatProvider = ({ children }) => {
 
       setClientReady(true);
     };
-    if (variables.GS_USER_TOKEN) setupClient();
+    if (variables.GS_USER_TOKEN && variables.USER?.id) setupClient();
     return () => chatClient.disconnectUser();
-  }, [variables.USER]);
+  }, [variables.USER?.id, variables.GS_USER_TOKEN]);
   return clientReady ? (
     <OverlayProvider
       bottomInset={bottom}
