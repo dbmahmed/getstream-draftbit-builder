@@ -1,6 +1,7 @@
 import React from 'react';
 import * as SportsbettingAPIAuthEndpointsApi from '../apis/SportsbettingAPIAuthEndpointsApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import * as CustomCode from '../custom-files/CustomCode.js';
 import createUserObj from '../global-functions/createUserObj';
 import formattedAuthHeader from '../global-functions/formattedAuthHeader';
 import {
@@ -18,9 +19,18 @@ const SimpleLoginScreen = props => {
   const Variables = Constants;
   const setGlobalVariableValue = GlobalVariables.useSetValue();
 
+  const canSignUp = () => {
+    return username.length > 0 && password.length > 0;
+  };
+
+  const logNewGSToken = token => {
+    console.log(`new GSToken ${token}`);
+  };
+
   const { theme } = props;
   const { navigation } = props;
 
+  const [isSigningUp, setIsSigningUp] = React.useState(false);
   const [password, setPassword] = React.useState('');
   const [username, setUsername] = React.useState('');
 
@@ -82,6 +92,7 @@ const SimpleLoginScreen = props => {
             onPress={() => {
               const handler = async () => {
                 try {
+                  setIsSigningUp(true);
                   const authObj =
                     await SportsbettingAPIAuthEndpointsApi.loginPOST(
                       Constants,
@@ -95,16 +106,17 @@ const SimpleLoginScreen = props => {
                     key: 'AUTH_HEADER',
                     value: formattedAuthHeader(authObj?.accessToken),
                   });
-                  navigation.navigate('StackNavigator', {
-                    screen: 'ChannelListScreen',
-                  });
                   const newGSToken =
                     await SportsbettingAPIAuthEndpointsApi.getGetstreamTokenGET(
                       Constants,
                       { internalId: authObj?.internalId }
                     );
                   console.log(authObj);
-                  console.log(newGSToken);
+                  setIsSigningUp(false);
+                  navigation.navigate('StackNavigator', {
+                    screen: 'ChannelListScreen',
+                  });
+                  logNewGSToken(newGSToken);
                 } catch (err) {
                   console.error(err);
                 }
@@ -112,6 +124,8 @@ const SimpleLoginScreen = props => {
               handler();
             }}
             style={styles(theme).ButtonSolidfe5f3af3}
+            disabled={!canSignUp()}
+            loading={isSigningUp}
             title={'Sign in'}
           />
           <Spacer top={16} right={8} bottom={16} left={8} />

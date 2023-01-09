@@ -22,6 +22,9 @@ export const GetStreamChatProvider = ({ children }) => {
   useEffect(() => {
     const setupClient = async () => {
       try {
+        console.log(
+          `Connecting with user_id: ${variables.USER} GSTOKEN: ${variables.GS_USER_TOKEN}`
+        );
         await chatClient.connectUser(variables.USER, variables.GS_USER_TOKEN);
       } catch (e) {
         console.log('error while connecting user', e.message);
@@ -32,7 +35,7 @@ export const GetStreamChatProvider = ({ children }) => {
 
     setupClient();
     return () => chatClient.disconnectUser();
-  }, []);
+  }, [variables.USER]);
   return clientReady ? (
     <OverlayProvider
       bottomInset={bottom}
