@@ -23,10 +23,6 @@ const SimpleLoginScreen = props => {
     return username.length > 0 && password.length > 0;
   };
 
-  const logNewGSToken = token => {
-    console.log(`new GSToken ${token}`);
-  };
-
   const { theme } = props;
   const { navigation } = props;
 
@@ -106,17 +102,11 @@ const SimpleLoginScreen = props => {
                     key: 'AUTH_HEADER',
                     value: formattedAuthHeader(authObj?.accessToken),
                   });
-                  const newGSToken =
-                    await SportsbettingAPIAuthEndpointsApi.getGetstreamTokenGET(
-                      Constants,
-                      { internalId: authObj?.internalId }
-                    );
                   console.log(authObj);
                   setIsSigningUp(false);
                   navigation.navigate('StackNavigator', {
                     screen: 'ChannelListScreen',
                   });
-                  logNewGSToken(newGSToken);
                 } catch (err) {
                   console.error(err);
                 }

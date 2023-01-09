@@ -4,6 +4,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import * as ChannelList from '../custom-files/ChannelList.js';
 import * as CustomCode from '../custom-files/CustomCode.js';
 import * as getStreamChatWrapper from '../custom-files/getStreamChatWrapper.js';
+import formattedLog from '../global-functions/formattedLog';
 import * as Utils from '../utils';
 import {
   Button,
@@ -28,6 +29,7 @@ import { Fetch } from 'react-request';
 const ChannelListScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
 
   const applyUserFilter = query => {
     setFilteredUsers(() =>
@@ -81,17 +83,29 @@ const ChannelListScreen = props => {
 
   const isFocused = useIsFocused();
   React.useEffect(() => {
-    try {
-      if (!isFocused) {
-        return;
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const GSToken =
+          await SportsbettingAPIAuthEndpointsApi.getGetstreamTokenGET(
+            Constants,
+            { internalId: Constants['USER']?.id }
+          );
+        setInitialFilter(Variables);
+        console.log(Constants['USER']);
+        selectMember(Constants['USER']?.id);
+        formattedLog('New GSToken', GSToken);
+        setGlobalVariableValue({
+          key: 'GS_USER_TOKEN',
+          value: GSToken,
+        });
+      } catch (err) {
+        console.error(err);
       }
-      setInitialFilter(Variables);
-      console.log(Constants['USER']);
-      console.log(Constants['AUTH_HEADER']);
-      selectMember(Constants['USER']?.id);
-    } catch (err) {
-      console.error(err);
-    }
+    };
+    handler();
   }, [isFocused]);
 
   const [filteredUsers, setFilteredUsers] = React.useState(users);
