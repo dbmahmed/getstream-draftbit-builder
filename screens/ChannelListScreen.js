@@ -153,6 +153,18 @@ const ChannelListScreen = props => {
           />
         </View>
       </View>
+      <Utils.CustomCodeErrorBoundary>
+        <getStreamChatWrapper.GetStreamChatProvider>
+          <View style={styles(theme).View2200bac7}>
+            <Utils.CustomCodeErrorBoundary>
+              <ChannelList.ChannelListMod
+                navigation={props.navigation}
+                filter={memoizedFilters}
+              />
+            </Utils.CustomCodeErrorBoundary>
+          </View>
+        </getStreamChatWrapper.GetStreamChatProvider>
+      </Utils.CustomCodeErrorBoundary>
       {/* User Modal */}
       <>
         {!showUserModal ? null : (

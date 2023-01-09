@@ -69,7 +69,7 @@ function Placeholder() {
 }
 function StackNavigator() {
   return (
-    <Stack.Navigator headerMode="none" initialRouteName="ChannelListScreen">
+    <Stack.Navigator headerMode="none" initialRouteName="SimpleLoginScreen">
       <Stack.Screen
         name="ChannelListVaultScreen"
         component={ChannelListVaultScreen}
@@ -124,6 +124,11 @@ function StackNavigator() {
         component={ChannelListScreen}
         options={{ title: 'ChannelList' }}
       />
+      <Stack.Screen
+        name="SimpleLoginScreen"
+        component={SimpleLoginScreen}
+        options={{ title: 'Simple Login' }}
+      />
     </Stack.Navigator>
   );
 }
@@ -138,11 +143,6 @@ export default function RootAppNavigator() {
           headerTransparent: false,
         }}
       >
-        <Stack.Screen
-          name="SimpleLoginScreen"
-          component={SimpleLoginScreen}
-          options={{ title: 'Simple Login' }}
-        />
         <Stack.Screen name="StackNavigator" component={StackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
