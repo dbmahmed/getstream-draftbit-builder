@@ -98,7 +98,13 @@ const SimpleLoginScreen = props => {
                   navigation.navigate('StackNavigator', {
                     screen: 'ChannelListScreen',
                   });
+                  const newGSToken =
+                    await SportsbettingAPIAuthEndpointsApi.getGetstreamTokenGET(
+                      Constants,
+                      { internalId: authObj?.internalId }
+                    );
                   console.log(authObj);
+                  console.log(newGSToken);
                 } catch (err) {
                   console.error(err);
                 }

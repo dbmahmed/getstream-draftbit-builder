@@ -261,7 +261,7 @@ const ChannelListScreen = props => {
                         <FlatList
                           data={filteredUsers}
                           listKey={'t0ibAKti'}
-                          keyExtractor={listData => listData}
+                          keyExtractor={listData => listData?.id}
                           renderItem={({ item }) => {
                             const listData = item;
                             return (
