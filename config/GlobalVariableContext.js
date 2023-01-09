@@ -9,7 +9,7 @@ const DeviceVariables = {
   GS_USER_TOKEN: '',
   USER: {},
 };
-const AppVariables = {};
+const AppVariables = { GS_CLIENT_CONNECTED: false };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 

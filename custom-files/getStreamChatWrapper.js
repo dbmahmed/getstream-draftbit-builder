@@ -10,6 +10,7 @@ export const GetStreamChatProvider = ({ children }) => {
   const bottom = useSafeAreaInsets();
   const theme = useStreamChatTheme();
   const variables = GlobalVariables.useValues();
+  const setVariables = GlobalVariables.useSetValue();
 
   const [clientReady, setClientReady] = useState(false);
 
@@ -26,14 +27,20 @@ export const GetStreamChatProvider = ({ children }) => {
           `Connecting with api_key ${variables.GS_API_KEY} user_id: ${variables.USER.id} GSTOKEN: ${variables.GS_USER_TOKEN}`
         );
         await chatClient.connectUser(variables.USER, variables.GS_USER_TOKEN);
+        await setVariables({ key: 'GS_CLIENT_CONNECTED', value: true });
       } catch (e) {
         console.log('error while connecting user', e.message);
       }
 
       setClientReady(true);
     };
-    if (variables.GS_USER_TOKEN && variables.USER?.id) setupClient();
-    return () => chatClient.disconnectUser();
+    if (
+      !variables.GS_CLIENT_CONNECTED &&
+      variables.GS_USER_TOKEN &&
+      variables.USER?.id
+    )
+      setupClient();
+    return () => variables.GS_CLIENT_CONNECTED && chatClient.disconnectUser();
   }, [variables.USER?.id, variables.GS_USER_TOKEN]);
   return clientReady ? (
     <OverlayProvider
