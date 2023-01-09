@@ -11,11 +11,14 @@ export const GetStreamChatProvider = ({ children }) => {
   const theme = useStreamChatTheme();
   const variables = GlobalVariables.useValues();
   const setVariables = GlobalVariables.useSetValue();
+  const [chatClient, setChatClient] = useState(
+    StreamChat.getInstance(variables.GS_API_KEY)
+  );
 
-  const [clientReady, setClientReady] = useState(false);
+  // const [clientReady, setClientReady] = useState(false);
 
   // console.log('in the wrapper', variables.GS_API_KEY, variables.USER, variables.GS_USER_TOKEN)
-  const chatClient = StreamChat.getInstance(variables.GS_API_KEY);
+  // const chatClient = StreamChat.getInstance(variables.GS_API_KEY);
   const streami18n = new Streami18n({
     language: 'en',
   });
@@ -32,7 +35,7 @@ export const GetStreamChatProvider = ({ children }) => {
         console.log('error while connecting user', e.message);
       }
 
-      setClientReady(true);
+      // setClientReady(true);
     };
     if (
       !variables.GS_CLIENT_CONNECTED &&
@@ -41,13 +44,14 @@ export const GetStreamChatProvider = ({ children }) => {
     )
       setupClient();
     return async () => {
-      if (variables.GS_CLIENT_CONNECTED) {
-        chatClient.disconnectUser();
-        await setVariables({ key: 'GS_CLIENT_CONNECTED', value: true });
-      }
+      setChatClient(null);
+
+      chatClient.disconnectUser();
     };
   }, [variables.USER?.id, variables.GS_USER_TOKEN]);
-  return clientReady ? (
+
+  // if (!chatClient) return null;
+  return !chatClient ? (
     <OverlayProvider
       bottomInset={bottom}
       i18nInstance={streami18n}
