@@ -40,7 +40,12 @@ export const GetStreamChatProvider = ({ children }) => {
       variables.USER?.id
     )
       setupClient();
-    return () => variables.GS_CLIENT_CONNECTED && chatClient.disconnectUser();
+    return async () => {
+      if (variables.GS_CLIENT_CONNECTED) {
+        chatClient.disconnectUser();
+        await setVariables({ key: 'GS_CLIENT_CONNECTED', value: true });
+      }
+    };
   }, [variables.USER?.id, variables.GS_USER_TOKEN]);
   return clientReady ? (
     <OverlayProvider
