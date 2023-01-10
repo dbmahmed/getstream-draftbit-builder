@@ -101,6 +101,7 @@ export const GetStreamChatProvider1 = ({ children }) => {
         console.log(`Connecting with user_id: ${User.id} GSTOKEN: ${GSTOKEN}`);
         await chatClient.connectUser(User, GSTOKEN);
         setClientReady(true);
+        await setVariables({ key: 'GS_CLIENT_CONNECTED', value: true });
       } catch (e) {
         console.log('error while connecting user', e.message);
       }
