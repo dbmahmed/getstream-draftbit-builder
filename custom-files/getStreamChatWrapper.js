@@ -99,15 +99,15 @@ export const GetStreamChatProvider1 = ({ children }) => {
       try {
         console.log(`Connecting with user_id: ${User.id} GSTOKEN: ${GSTOKEN}`);
         await chatClient.connectUser(User, GSTOKEN);
+        setClientReady(true);
       } catch (e) {
         console.log('error while connecting user', e.message);
       }
-
-      setClientReady(true);
     };
-    if (GSTOKEN && User?.id) setupClient();
+    if (!clientReady && GSTOKEN && User?.id) setupClient();
     return () => chatClient.disconnectUser();
   }, []);
+  // if (!chatClient) return null
   return clientReady ? (
     <OverlayProvider
       bottomInset={bottom}
