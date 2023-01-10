@@ -80,6 +80,7 @@ export const GetStreamChatProvider1 = ({ children }) => {
   const bottom = useSafeAreaInsets();
   const theme = useStreamChatTheme();
   const variables = GlobalVariables.useValues();
+  const setVariables = GlobalVariables.useSetValue();
 
   const [clientReady, setClientReady] = useState(false);
 
@@ -104,8 +105,11 @@ export const GetStreamChatProvider1 = ({ children }) => {
         console.log('error while connecting user', e.message);
       }
     };
-    if (!clientReady && GSTOKEN && User?.id) setupClient();
-    return () => chatClient.disconnectUser();
+    if (!variables.GS_CLIENT_CONNECTED && GSTOKEN && User?.id) setupClient();
+    return async () => {
+      chatClient.disconnectUser();
+      await setVariables({ key: 'GS_CLIENT_CONNECTED', value: false });
+    };
   }, []);
   // if (!chatClient) return null
   return clientReady ? (
