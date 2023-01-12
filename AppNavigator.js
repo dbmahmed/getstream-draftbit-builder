@@ -11,6 +11,7 @@ import LinkingConfiguration from './LinkingConfiguration.js';
 import ChannelListScreen from './screens/ChannelListScreen';
 import ChannelListVaultScreen from './screens/ChannelListVaultScreen';
 import ChannelScreen from './screens/ChannelScreen';
+import GetStreamChatScreen from './screens/GetStreamChatScreen';
 import SimpleLoginScreen from './screens/SimpleLoginScreen';
 import ThreadScreen from './screens/ThreadScreen';
 
@@ -146,6 +147,11 @@ export default function RootAppNavigator() {
           headerTransparent: false,
         }}
       >
+        <Stack.Screen
+          name="GetStreamChatScreen"
+          component={GetStreamChatScreen}
+          options={{ title: 'GetStreamChat' }}
+        />
         <Stack.Screen name="StackNavigator" component={StackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

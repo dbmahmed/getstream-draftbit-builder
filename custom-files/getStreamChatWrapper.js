@@ -1,10 +1,51 @@
-import { OverlayProvider, Chat, Streami18n } from 'stream-chat-expo';
+import {
+  OverlayProvider,
+  Streami18n,
+  Chat,
+  Channel,
+  ChannelHeader,
+  ChannelList,
+  MessageInput,
+  MessageList,
+  Thread,
+  Window,
+} from 'stream-chat-expo';
+// import { Chat, Channel, ChannelHeader, ChannelList, LoadingIndicator, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
 import { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStreamChatTheme } from '../useStreamChatTheme.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { StreamChat } from 'stream-chat';
+
+const useClient = ({ apiKey, userData, tokenOrProvider }) => {
+  const [chatClient, setChatClient] = useState(null);
+
+  useEffect(() => {
+    const client = new StreamChat(apiKey);
+    // prevents application from setting stale client (user changed, for example)
+    let didUserConnectInterrupt = false;
+
+    const connectionPromise = client
+      .connectUser(userData, tokenOrProvider)
+      .then(() => {
+        if (!didUserConnectInterrupt) setChatClient(client);
+      });
+
+    return () => {
+      didUserConnectInterrupt = true;
+      setChatClient(null);
+      // wait for connection to finish before initiating closing sequence
+      connectionPromise
+        .then(() => client.disconnectUser())
+        .then(() => {
+          console.log('connection closed');
+        });
+    };
+  }, [apiKey, userData.id, tokenOrProvider]);
+
+  return chatClient;
+};
 
 export const GetStreamChatProvider = ({ children }) => {
   const bottom = useSafeAreaInsets();
@@ -79,13 +120,8 @@ export const GetStreamChatProvider = ({ children }) => {
 export const GetStreamChatProvider1 = ({ children }) => {
   const bottom = useSafeAreaInsets();
   const theme = useStreamChatTheme();
-  const variables = GlobalVariables.useValues();
-  const setVariables = GlobalVariables.useSetValue();
-
-  const [clientReady, setClientReady] = useState(false);
-
   // console.log('in the wrapper', variables.GS_API_KEY, variables.USER, variables.GS_USER_TOKEN)
-  const chatClient = StreamChat.getInstance('x65f7n98t9nq');
+  // const chatClient = StreamChat.getInstance('x65f7n98t9nq');
   const streami18n = new Streami18n({
     language: 'en',
   });
@@ -94,26 +130,14 @@ export const GetStreamChatProvider1 = ({ children }) => {
 
   const GSTOKEN =
     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiODQzMDQ4YjktNGVkMy00Njg5LTliODQtNTdkNjM1NWFmNTM1In0.imJl_ZZg0yNYBRA5VHYMEUaTmRt6O0y6fN7m_A6upzk';
+  const chatClient = useClient({
+    apiKey: 'dz5f4d5kzrue',
+    userData: User,
+    tokenOrProvider: GSTOKEN,
+  });
 
-  useEffect(() => {
-    const setupClient = async () => {
-      try {
-        console.log(`Connecting with user_id: ${User.id} GSTOKEN: ${GSTOKEN}`);
-        await chatClient.connectUser(User, GSTOKEN);
-        setClientReady(true);
-        await setVariables({ key: 'GS_CLIENT_CONNECTED', value: true });
-      } catch (e) {
-        console.log('error while connecting user', e.message);
-      }
-    };
-    if (!variables.GS_CLIENT_CONNECTED && GSTOKEN && User?.id) setupClient();
-    return async () => {
-      chatClient.disconnectUser();
-      await setVariables({ key: 'GS_CLIENT_CONNECTED', value: false });
-    };
-  }, []);
   // if (!chatClient) return null
-  return clientReady ? (
+  return chatClient ? (
     <OverlayProvider
       bottomInset={bottom}
       i18nInstance={streami18n}
@@ -121,7 +145,15 @@ export const GetStreamChatProvider1 = ({ children }) => {
       value={{ style: theme }}
     >
       <Chat client={chatClient} i18nInstance={streami18n}>
-        {children}
+        <ChannelList filters={filters} sort={sort} />
+        <Channel>
+          <Window>
+            <ChannelHeader />
+            <MessageList />
+            <MessageInput />
+          </Window>
+          <Thread />
+        </Channel>
       </Chat>
     </OverlayProvider>
   ) : (
