@@ -185,6 +185,7 @@ const ChannelListScreen = props => {
           USER={Constants['USER']}
           GSTOKEN={Constants['GS_USER_TOKEN']}
           APIKEY={Constants['GS_API_KEY']}
+          theme={theme}
         />
       </Utils.CustomCodeErrorBoundary>
       {/* User Modal */}

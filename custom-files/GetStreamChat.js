@@ -18,13 +18,8 @@ import {
 import { useEffect, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStreamChatTheme } from '../useStreamChatTheme.js';
-import {
-  View,
-  ActivityIndicator,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { StreamChat } from 'stream-chat';
 // Define and export your components as named exports here.
 const useClient = ({ apiKey, userData, tokenOrProvider }) => {
   const [chatClient, setChatClient] = useState(null);
@@ -56,9 +51,9 @@ const useClient = ({ apiKey, userData, tokenOrProvider }) => {
 };
 // You can use components exported from this file within a Custom Code component as
 // <G.MyExampleComponent />
-const GSChat = ({ APIKEY, USER, GSTOKEN, filters }) => {
+export const GSChat = ({ APIKEY, USER, GSTOKEN, filters, theme }) => {
   const bottom = useSafeAreaInsets();
-  const theme = useStreamChatTheme();
+  const stheme = useStreamChatTheme();
   const [channel, setChannel] = useState();
   const [thread, setThread] = useState();
   const onBackPress = () => {
@@ -90,7 +85,7 @@ const GSChat = ({ APIKEY, USER, GSTOKEN, filters }) => {
       bottomInset={bottom}
       i18nInstance={streami18n}
       translucentStatusBar
-      value={{ style: theme }}
+      value={{ style: stheme }}
     >
       <>
         {!channel ? null : (
@@ -150,11 +145,10 @@ const GSChat = ({ APIKEY, USER, GSTOKEN, filters }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  ActivityIndicator89fafeca: { height: 36, width: 36 },
-  View2200bac7: { height: '100%' },
-  Viewbf78ff24: { alignItems: 'center', flex: 1, justifyContent: 'center' },
-  IconButtonb180632a: { marginLeft: 16, marginTop: 16 },
-});
-
-export default GSChat;
+const styles = theme =>
+  StyleSheet.create({
+    ActivityIndicator89fafeca: { height: 36, width: 36 },
+    View2200bac7: { height: '100%' },
+    Viewbf78ff24: { alignItems: 'center', flex: 1, justifyContent: 'center' },
+    IconButtonb180632a: { marginLeft: 16, marginTop: 16 },
+  });
