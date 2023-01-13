@@ -11,6 +11,7 @@ import {
   Button,
   Checkbox,
   Icon,
+  IconButton,
   ScreenContainer,
   Touchable,
   withTheme,
@@ -75,6 +76,10 @@ const ChannelListScreen = props => {
     }
   };
 
+  const showHeader = Variables => {
+    return !(Variables?.CHANNEL && Variables?.THREAD);
+  };
+
   const setFilter = (Variables, newVal) => {
     if (newVal)
       setMemoizedFilters(prev => ({
@@ -136,48 +141,49 @@ const ChannelListScreen = props => {
       hasSafeArea={true}
       hasTopSafeArea={false}
     >
-      <View style={styles(theme).View09806914}>
-        <Icon size={24} name={'Feather/menu'} />
-        <Touchable
-          onPress={() => {
-            try {
-              setShowUserModal(true);
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          <Icon size={24} name={'AntDesign/addusergroup'} />
-        </Touchable>
-      </View>
-      {/* SearchBar */}
-      <View style={styles(theme).View05ddd90c}>
-        {/* container */}
-        <View style={styles(theme).Viewfb9b4af6}>
-          <View style={styles(theme).View3232fd8e}>
-            <Icon
-              style={styles(theme).Icon9d0ad012}
-              name={'Feather/search'}
-              size={28}
-            />
+      {/* Header */}
+      <>
+        {!showHeader() ? null : (
+          <View>
+            <View style={styles(theme).View09806914}>
+              <Icon size={24} name={'Feather/menu'} />
+              <Touchable
+                onPress={() => {
+                  try {
+                    setShowUserModal(true);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <Icon size={24} name={'AntDesign/addusergroup'} />
+              </Touchable>
+            </View>
+            {/* SearchBar */}
+            <View style={styles(theme).View05ddd90c}>
+              {/* container */}
+              <View style={styles(theme).Viewfb9b4af6}>
+                <View style={styles(theme).Viewcd213be7}></View>
+                <TextInput
+                  onChangeText={newTextInputValue => {
+                    try {
+                      setTextInputValue(newTextInputValue);
+                      setFilter(Variables, newTextInputValue);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                  style={styles(theme).TextInput448acf0e}
+                  value={textInputValue}
+                  editable={true}
+                  placeholder={'Enter a value...'}
+                  placeholderTextColor={theme.colors['Light Inverse']}
+                />
+              </View>
+            </View>
           </View>
-          <TextInput
-            onChangeText={newTextInputValue => {
-              try {
-                setTextInputValue(newTextInputValue);
-                setFilter(Variables, newTextInputValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            style={styles(theme).TextInputbc061578}
-            value={textInputValue}
-            editable={true}
-            placeholder={'Enter a value...'}
-            placeholderTextColor={theme.colors['Light Inverse']}
-          />
-        </View>
-      </View>
+        )}
+      </>
       {/* GetStreamChat */}
       <>
         {!Constants['GS_USER_TOKEN'] ? null : (
@@ -426,7 +432,6 @@ const styles = theme =>
     },
     Fetch431eb058: { minHeight: 40 },
     FlatListc992f941Content: { flex: 1 },
-    Icon9d0ad012: { marginTop: 5 },
     TextInput03ad5433: {
       borderBottomWidth: 1,
       borderColor: theme.colors.divider,
@@ -438,6 +443,21 @@ const styles = theme =>
       paddingLeft: 8,
       paddingRight: 8,
       paddingTop: 8,
+    },
+    TextInput448acf0e: {
+      backgroundColor: theme.colors['Light'],
+      borderBottomRightRadius: 8,
+      borderBottomWidth: 1,
+      borderColor: theme.colors.divider,
+      borderRightWidth: 1,
+      borderTopRightRadius: 8,
+      borderTopWidth: 1,
+      height: '100%',
+      paddingBottom: 8,
+      paddingLeft: 8,
+      paddingRight: 8,
+      paddingTop: 8,
+      width: '90%',
     },
     TextInputbc061578: {
       backgroundColor: theme.colors['Light'],
@@ -469,16 +489,6 @@ const styles = theme =>
       paddingTop: 25,
     },
     View2200bac7: { height: '100%' },
-    View3232fd8e: {
-      borderBottomLeftRadius: 8,
-      borderBottomWidth: 1,
-      borderColor: theme.colors['Background'],
-      borderLeftWidth: 1,
-      borderTopLeftRadius: 8,
-      borderTopWidth: 1,
-      flex: 1,
-      height: '100%',
-    },
     View47f15540: {
       borderBottomLeftRadius: 8,
       borderBottomWidth: 1,
@@ -527,6 +537,17 @@ const styles = theme =>
       paddingTop: 5,
     },
     Viewa766fe55: { paddingBottom: 20, paddingTop: 15 },
+    Viewcd213be7: {
+      borderBottomLeftRadius: 8,
+      borderBottomWidth: 1,
+      borderColor: theme.colors['Background'],
+      borderLeftWidth: 1,
+      borderTopLeftRadius: 8,
+      borderTopWidth: 1,
+      flex: 1,
+      height: '100%',
+      justifyContent: 'center',
+    },
     Viewfb9b4af6: {
       alignItems: 'center',
       backgroundColor: theme.colors['Light'],

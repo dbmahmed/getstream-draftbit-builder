@@ -3,6 +3,7 @@ import React from 'react';
 
 // Add any other imports you need here. Make sure to add those imports (besides "react"
 // and "react-native") to the Packages section.
+import * as GlobalVariables from '../config/GlobalVariableContext';
 
 import { IconButton } from '@draftbit/ui';
 import {
@@ -54,8 +55,17 @@ const useClient = ({ apiKey, userData, tokenOrProvider }) => {
 export const GSChat = ({ APIKEY, USER, GSTOKEN, filters, theme }) => {
   const bottom = useSafeAreaInsets();
   const stheme = useStreamChatTheme();
-  const [channel, setChannel] = useState();
-  const [thread, setThread] = useState();
+  // const [channel, setChannel] = useState();
+  // const [thread, setThread] = useState();
+  const Variables = GlobalVariables.useValues();
+  const setVariables = GlobalVariables.useSetValue();
+
+  const channel = Variables['CHANNEL'];
+  const thread = Variables['THREAD'];
+
+  const setChannel = ch => setVariables({ key: 'CHANNEL', value: ch });
+  const setThread = th => setVariables({ key: 'THREAD', value: th });
+
   const onBackPress = () => {
     if (thread) {
       setThread(undefined);
