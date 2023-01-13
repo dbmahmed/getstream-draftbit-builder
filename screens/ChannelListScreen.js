@@ -3,6 +3,7 @@ import * as SportsbettingAPIAuthEndpointsApi from '../apis/SportsbettingAPIAuthE
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import * as ChannelList from '../custom-files/ChannelList.js';
 import * as CustomCode from '../custom-files/CustomCode.js';
+import * as GetStreamChat from '../custom-files/GetStreamChat.js';
 import * as getStreamChatWrapper from '../custom-files/getStreamChatWrapper.js';
 import formattedLog from '../global-functions/formattedLog';
 import * as Utils from '../utils';
@@ -66,6 +67,14 @@ const ChannelListScreen = props => {
     return fetchedUsers?.filter(item => item?.id !== Variables.USER.id);
   };
 
+  const onBackPress = () => {
+    if (thread) {
+      setThread(undefined);
+    } else if (channel) {
+      setChannel(undefined);
+    }
+  };
+
   const setFilter = (Variables, newVal) => {
     if (newVal)
       setMemoizedFilters(prev => ({
@@ -108,6 +117,7 @@ const ChannelListScreen = props => {
     handler();
   }, [isFocused]);
 
+  const [channel, setChannel] = React.useState({});
   const [filteredUsers, setFilteredUsers] = React.useState(users);
   const [isCreating, setIsCreating] = React.useState(false);
   const [memoizedFilters, setMemoizedFilters] = React.useState({});
@@ -116,14 +126,15 @@ const ChannelListScreen = props => {
   const [showUserModal, setShowUserModal] = React.useState(false);
   const [textInputValue, setTextInputValue] = React.useState('');
   const [textInputValue2, setTextInputValue2] = React.useState('');
+  const [thread, setThread] = React.useState({});
   const [userSearch, setUserSearch] = React.useState('');
   const [users, setUsers] = React.useState([]);
 
   return (
     <ScreenContainer
-      hasSafeArea={false}
       scrollable={false}
-      hasTopSafeArea={true}
+      hasSafeArea={true}
+      hasTopSafeArea={false}
     >
       <View style={styles(theme).View09806914}>
         <Icon size={24} name={'Feather/menu'} />
@@ -167,17 +178,14 @@ const ChannelListScreen = props => {
           />
         </View>
       </View>
+      {/* GetStreamChat */}
       <Utils.CustomCodeErrorBoundary>
-        <getStreamChatWrapper.GetStreamChatProvider>
-          <View style={styles(theme).View2200bac7}>
-            <Utils.CustomCodeErrorBoundary>
-              <ChannelList.ChannelListMod
-                navigation={props.navigation}
-                filter={memoizedFilters}
-              />
-            </Utils.CustomCodeErrorBoundary>
-          </View>
-        </getStreamChatWrapper.GetStreamChatProvider>
+        <GetStreamChat.GSChat
+          filters={memoizedFilters}
+          USER={Constants['USER']}
+          GSTOKEN={Constants['GS_USER_TOKEN']}
+          APIKEY={Constants['GS_API_KEY']}
+        />
       </Utils.CustomCodeErrorBoundary>
       {/* User Modal */}
       <>

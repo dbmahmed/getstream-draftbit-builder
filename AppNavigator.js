@@ -75,55 +75,6 @@ function StackNavigator() {
       initialRouteName="ChannelListVaultScreen"
     >
       <Stack.Screen
-        name="ChannelListVaultScreen"
-        component={ChannelListVaultScreen}
-        options={{ headerTitle: 'Channel List', title: 'ChannelList Vault' }}
-      />
-      <Stack.Screen
-        name="ChannelScreen"
-        component={ChannelScreen}
-        options={{
-          headerTitle: 'Channel',
-          headerLeft: ({ tintColor, onPress, canGoBack }) =>
-            canGoBack ? null : (
-              <View
-                style={[styles.headerContainer, styles.headerContainerLeft]}
-              >
-                <Icon
-                  name="AntDesign/arrowleft"
-                  size={Platform.OS === 'ios' ? 21 : 24}
-                  color={tintColor}
-                  onPress={onPress}
-                  style={[styles.headerIcon, styles.headerIconLeft]}
-                />
-              </View>
-            ),
-          title: 'Channel',
-        }}
-      />
-      <Stack.Screen
-        name="ThreadScreen"
-        component={ThreadScreen}
-        options={{
-          headerTitle: 'Thread',
-          headerLeft: ({ tintColor, onPress, canGoBack }) =>
-            canGoBack ? null : (
-              <View
-                style={[styles.headerContainer, styles.headerContainerLeft]}
-              >
-                <Icon
-                  name="AntDesign/arrowleft"
-                  size={Platform.OS === 'ios' ? 21 : 24}
-                  color={tintColor}
-                  onPress={onPress}
-                  style={[styles.headerIcon, styles.headerIconLeft]}
-                />
-              </View>
-            ),
-          title: 'Thread',
-        }}
-      />
-      <Stack.Screen
         name="ChannelListScreen"
         component={ChannelListScreen}
         options={{ title: 'ChannelList' }}
@@ -147,6 +98,21 @@ export default function RootAppNavigator() {
           headerTransparent: false,
         }}
       >
+        <Stack.Screen
+          name="ChannelListVaultScreen"
+          component={ChannelListVaultScreen}
+          options={{ title: 'ChannelList Vault' }}
+        />
+        <Stack.Screen
+          name="ChannelScreen"
+          component={ChannelScreen}
+          options={{ title: 'Channel' }}
+        />
+        <Stack.Screen
+          name="ThreadScreen"
+          component={ThreadScreen}
+          options={{ title: 'Thread' }}
+        />
         <Stack.Screen
           name="GetStreamChatScreen"
           component={GetStreamChatScreen}

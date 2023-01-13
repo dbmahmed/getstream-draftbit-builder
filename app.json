@@ -2,7 +2,7 @@
   "expo": {
     "name": "GetStream-Demo",
     "slug": "get-stream-demo",
-    "scheme": "get-stream-demo",
+    "scheme": "untitled-app",
     "description": "My app powered by Draftbit",
     "privacy": "unlisted",
     "platforms": [
