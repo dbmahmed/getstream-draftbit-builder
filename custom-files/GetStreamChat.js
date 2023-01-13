@@ -68,13 +68,11 @@ export const GSChat = ({ APIKEY, USER, GSTOKEN, filters, theme }) => {
     language: 'en',
   });
 
-  const chatClient = GSTOKEN
-    ? useClient({
-        apiKey: APIKEY,
-        userData: USER,
-        tokenOrProvider: GSTOKEN,
-      })
-    : null;
+  const chatClient = useClient({
+    apiKey: APIKEY,
+    userData: USER,
+    tokenOrProvider: GSTOKEN,
+  });
 
   const sort = { last_message_at: -1 };
   const options = {

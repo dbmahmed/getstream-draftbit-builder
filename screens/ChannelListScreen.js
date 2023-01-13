@@ -179,15 +179,19 @@ const ChannelListScreen = props => {
         </View>
       </View>
       {/* GetStreamChat */}
-      <Utils.CustomCodeErrorBoundary>
-        <GetStreamChat.GSChat
-          filters={memoizedFilters}
-          USER={Constants['USER']}
-          GSTOKEN={Constants['GS_USER_TOKEN']}
-          APIKEY={Constants['GS_API_KEY']}
-          theme={theme}
-        />
-      </Utils.CustomCodeErrorBoundary>
+      <>
+        {!Constants['GS_USER_TOKEN'] ? null : (
+          <Utils.CustomCodeErrorBoundary>
+            <GetStreamChat.GSChat
+              filters={memoizedFilters}
+              USER={Constants['USER']}
+              GSTOKEN={Constants['GS_USER_TOKEN']}
+              APIKEY={Constants['GS_API_KEY']}
+              theme={theme}
+            />
+          </Utils.CustomCodeErrorBoundary>
+        )}
+      </>
       {/* User Modal */}
       <>
         {!showUserModal ? null : (
