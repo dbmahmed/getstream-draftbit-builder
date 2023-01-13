@@ -9,11 +9,7 @@ import theme from './themes/DraftbitTheme.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
 import ChannelListScreen from './screens/ChannelListScreen';
-import ChannelListVaultScreen from './screens/ChannelListVaultScreen';
-import ChannelScreen from './screens/ChannelScreen';
-import GetStreamChatScreen from './screens/GetStreamChatScreen';
 import SimpleLoginScreen from './screens/SimpleLoginScreen';
-import ThreadScreen from './screens/ThreadScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -95,26 +91,6 @@ export default function RootAppNavigator() {
           headerTransparent: false,
         }}
       >
-        <Stack.Screen
-          name="ChannelListVaultScreen"
-          component={ChannelListVaultScreen}
-          options={{ title: 'ChannelList Vault' }}
-        />
-        <Stack.Screen
-          name="ChannelScreen"
-          component={ChannelScreen}
-          options={{ title: 'Channel' }}
-        />
-        <Stack.Screen
-          name="ThreadScreen"
-          component={ThreadScreen}
-          options={{ title: 'Thread' }}
-        />
-        <Stack.Screen
-          name="GetStreamChatScreen"
-          component={GetStreamChatScreen}
-          options={{ title: 'GetStreamChat' }}
-        />
         <Stack.Screen name="StackNavigator" component={StackNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

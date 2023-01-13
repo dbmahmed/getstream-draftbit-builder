@@ -34,7 +34,8 @@ const useClient = ({ apiKey, userData, tokenOrProvider }) => {
       .connectUser(userData, tokenOrProvider)
       .then(() => {
         if (!didUserConnectInterrupt) setChatClient(client);
-      });
+      })
+      .catch(e => console.log(e.message));
 
     return () => {
       didUserConnectInterrupt = true;

@@ -76,8 +76,8 @@ const ChannelListScreen = props => {
     }
   };
 
-  const showHeader = Variables => {
-    return !(Variables?.CHANNEL && Variables?.THREAD);
+  const showHeader = () => {
+    return !(Variables?.CHANNEL || Variables?.THREAD);
   };
 
   const setFilter = (Variables, newVal) => {
